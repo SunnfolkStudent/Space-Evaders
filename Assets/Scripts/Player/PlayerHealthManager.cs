@@ -27,6 +27,12 @@ public class PlayerHealthManager : MonoBehaviour
         PlayerEvents.hitAsteroid += TakeDamage;
         PlayerEvents.hitShield += AddShieldCharge;
     }
+    
+    private void OnDestroy()
+    {
+        PlayerEvents.hitAsteroid -= TakeDamage;
+        PlayerEvents.hitShield -= AddShieldCharge;
+    }
 
     private void TakeDamage()
     {
