@@ -9,7 +9,7 @@ public class PlayerCollisions : MonoBehaviour
             PlayerEvents.hitAsteroid?.Invoke();
         }
         
-        if (other.CompareTag("Laser"))
+        if (other.CompareTag("LaserCharge"))
         {
             PlayerEvents.hitLaserCharge?.Invoke();
         }
@@ -19,6 +19,6 @@ public class PlayerCollisions : MonoBehaviour
             PlayerEvents.hitShield?.Invoke();
         }
         
-        GameEvents.destroyAsteroid?.Invoke(other.gameObject);
+        GameEvents.destroyElement?.Invoke(other.gameObject);
     }
 }

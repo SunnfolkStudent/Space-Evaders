@@ -9,4 +9,5 @@ public static class PlayerEvents
     public static PlayerEvent hitAsteroid;
     public static PlayerEvent hitLaserCharge;
     public static PlayerEvent hitShield;
+    public static PlayerEvent fireLaser;
 }
