@@ -6,7 +6,7 @@ public class LaserScript : MonoBehaviour
     {
         if (other.CompareTag("Asteroid"))
         {
-            GameEvents.destroyElement?.Invoke(other.gameObject);
+            GameEvents.destroyAsteroid?.Invoke(other.gameObject);
         }
     }
 }

@@ -7,18 +7,19 @@ public class PlayerCollisions : MonoBehaviour
         if (other.CompareTag("Asteroid"))
         {
             PlayerEvents.hitAsteroid?.Invoke();
+            GameEvents.destroyAsteroid?.Invoke(other.gameObject);
         }
         
         if (other.CompareTag("LaserCharge"))
         {
             PlayerEvents.hitLaserCharge?.Invoke();
+            GameEvents.destroyLoot?.Invoke(other.gameObject);
         }
         
         if (other.CompareTag("Shield"))
         {
             PlayerEvents.hitShield?.Invoke();
+            GameEvents.destroyLoot?.Invoke(other.gameObject);
         }
-        
-        GameEvents.destroyElement?.Invoke(other.gameObject);
     }
 }
