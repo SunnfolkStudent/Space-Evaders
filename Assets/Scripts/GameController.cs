@@ -108,7 +108,6 @@ public class GameController : MonoBehaviour
         if (_timer >= _spawnRate)
         {
             SpawnAtRandomLocation();
-            SpawnAtRandomLocation();
             _timer = 0;
         }
     }
@@ -172,9 +171,9 @@ public class GameController : MonoBehaviour
     {
         _isGameOver = true;
         Time.timeScale = 0;
-        ReadWriteScore.WritePersistentCopy((int)_score);
         if (_score > _highScore)
         {
+            ReadWriteScore.WritePersistentCopy((int)_score);
             endScreenManager.NewHighScore();
         }
         endScreenManager.GameOver((int)_score);

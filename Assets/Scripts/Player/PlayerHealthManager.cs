@@ -3,8 +3,9 @@ using UnityEngine.UI;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    [SerializeField] Image[] livesImages;
-    [SerializeField] Image[] shieldImages;
+    [SerializeField] private Image[] livesImages;
+    [SerializeField] private Image[] shieldImages;
+    [SerializeField] private GameObject[] shields;
     
     private int _lives = 3;
     private int _maxShieldCharge = 3;
@@ -70,10 +71,12 @@ public class PlayerHealthManager : MonoBehaviour
     private void EnableShieldImage(int index)
     {
         shieldImages[index].enabled = true;
+        shields[index].SetActive(true);
     }
     
     private void DisableShieldImage(int index)
     {
         shieldImages[index].enabled = false;
+        shields[index].SetActive(false);
     }
 }
