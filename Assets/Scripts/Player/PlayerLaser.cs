@@ -24,6 +24,12 @@ public class PlayerLaser : MonoBehaviour
         PlayerEvents.hitLaserCharge += AddLaserCharge;
         PlayerEvents.fireLaser += FireLaser;
     }
+    
+    private void OnDestroy()
+    {
+        PlayerEvents.hitLaserCharge -= AddLaserCharge;
+        PlayerEvents.fireLaser -= FireLaser;
+    }
 
     // Update is called once per frame
     void Update()

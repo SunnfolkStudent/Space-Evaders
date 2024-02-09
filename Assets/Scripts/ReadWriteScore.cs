@@ -8,8 +8,11 @@ public static class ReadWriteScore
     public static void CreatePersistentCopy(TextAsset originalTextAsset)
     {
         string persistentCopyPath = Path.Combine(Application.persistentDataPath, _persistentCopyFileName);
-        File.WriteAllText(persistentCopyPath, originalTextAsset.text);
-        Debug.Log("Persistent copy created successfully.");
+        if (!File.Exists(persistentCopyPath))
+        {
+            File.WriteAllText(persistentCopyPath, originalTextAsset.text);
+            Debug.Log("Persistent copy created successfully.");
+        }
     }
 
 

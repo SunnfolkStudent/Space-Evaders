@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
@@ -31,8 +34,10 @@ public class GameController : MonoBehaviour
     private float _score;
     private int _highScore;
     private bool _isGameOver;
-    private TextMeshProUGUI _scoreText;
-    private TextMeshProUGUI _highScoreText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
+    
+    [SerializeField] private EndScreenManager endScreenManager;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +49,14 @@ public class GameController : MonoBehaviour
         GameEvents.destroyLoot += DestroyLoot;
 
         _highScore = ReadWriteScore.ReadPersistentCopy();
-        _highScoreText.text = "High Score: " + _highScore;
+        highScoreText.text = "High Score: " + _highScore;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerEvents.playerDeath -= OnDeath;
+        GameEvents.destroyAsteroid -= DestroyAsteroid;
+        GameEvents.destroyLoot -= DestroyLoot;
     }
 
     // Update is called once per frame
@@ -96,6 +108,7 @@ public class GameController : MonoBehaviour
         if (_timer >= _spawnRate)
         {
             SpawnAtRandomLocation();
+            SpawnAtRandomLocation();
             _timer = 0;
         }
     }
@@ -104,7 +117,7 @@ public class GameController : MonoBehaviour
     {
         if (!_isGameOver)
         {
-            _scoreText.text = "Score: " + (int)_score;
+            scoreText.text = "Score: " + (int)_score;
             _score += Time.deltaTime * _asteroidVelocity;   
         }
     }
@@ -157,7 +170,14 @@ public class GameController : MonoBehaviour
 
     private void OnDeath()
     {
+        _isGameOver = true;
         Time.timeScale = 0;
+        ReadWriteScore.WritePersistentCopy((int)_score);
+        if (_score > _highScore)
+        {
+            endScreenManager.NewHighScore();
+        }
+        endScreenManager.GameOver((int)_score);
     }
 
     private void DestroyAsteroid(GameObject asteroid)
